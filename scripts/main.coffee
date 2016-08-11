@@ -11,7 +11,7 @@ singleTemplate = require("./../structure/templates/singleTemplate.pug")
 
 # projectsCollection
 class projectsCollection extends Base.Collection
-  url: "./projects.json"
+  url: "http://jenna.stan.coffee/"
 
 # projectsView
 class projectsView extends Base.View
@@ -28,7 +28,7 @@ class projectsView extends Base.View
     return true
 
   getDataColumns: (cols) =>
-    
+
       array = {}
       i = 0
       while i < cols
