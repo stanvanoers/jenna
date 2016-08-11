@@ -1,0 +1,9 @@
+#single-background(single="background")
+#single-image-container(single="picture")
+  img#single-image(src!= project.get("image"), alt="single")
+  #single-image-zoom.h2.strong.mobile-hide Zoom
+#single-info
+  #single-info-text
+
+    h2.h2.strong.single-title(singleSlideUp=".7")!= project.get("title")
+    p.h3.light(singleSlideUp=".8")!= project.get("desc")

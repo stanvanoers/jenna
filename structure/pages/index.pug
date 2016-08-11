@@ -4,5 +4,31 @@ block title
   title Workflow - Index
 
 block content
+  section#header(header)
+    h2.h3.header-title Jenna Arts
+    .wrapper
+      a.h3.strong.header-button(href="#about", header="backbutton") About
   .wrapper
     section#projects(projects)
+      .projects-container(projects='container')
+    section#about.active(about)
+      #about-background(about="background")
+      .about-text
+        .about-info(aboutSlideUp=".5")
+          h4.strong Email
+          a.light(href="mailto:arts.jenna@gmail.com") arts.jenna@gmail.com
+          br
+          br
+          h4.strong Work for sale
+          a.light(href="http://newchique.gallery/") newchique.gallery
+        .about-desc
+          h1.h1(aboutSlideUp=".2") Jenna Arts
+          h3.h3.light(aboutSlideUp=".3") Illustrator
+          br
+          h3.strong.h3(aboutFadeIn=".5") About
+          p.h3.light(aboutFadeIn=".6") Jenna Arts (25) is a freelance illustrator from the Netherlands. She studied from 2009 till 2013 illustration at AKV St. Joost, Breda, the Netherlands.
+          br
+          h3.strong(aboutFadeIn=".7") Clients
+          p.light(aboutFadeIn=".7") NRC Handelsblad, nrc.next, Trouw, De Correspondent, Knack magazine, Uitgeverij Atlas-Contact, VPRO, fivethirtyeight.com, Mind Of A Genius, Mest Magazine
+
+    section#single(single)

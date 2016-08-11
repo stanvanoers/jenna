@@ -1,7 +1,17 @@
 .row
   .col-2(col)
-    each val in col0
-      li!= val.get("project")
+    each project in col0
+      a(href!= "/#single/"+ project.get("id"))
+        article.project
+          img.project-image(src!= project.get("image"), alt!= project.get("title"))
+          .project-info
+            h2.strong.project-title!= project.get("title")
+            p.light.project-desc!= project.get("desc")
   .col-2(col)
-    each val in col1
-      li!= val.get("project")
+    each project in col1
+      a(href!= "/#single/"+ project.get("id"))
+        article.project
+          img.project-image(src!= project.get("image"), alt!= project.get("title"))
+          .project-info
+            h2.strong.project-title!= project.get("title")
+            p.light.project-desc!= project.get("desc")

@@ -10,7 +10,7 @@
     "data": "data"
   },
   "server": {
-    "localhost": true,
+    "localhost": false,
     "port": 9000,
     "livereload": 35729
   },
