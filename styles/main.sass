@@ -1,36 +1,22 @@
 @import "reset"
-@import "grid"
 @import "variables"
 @import "typography"
-@import url(https://fonts.googleapis.com/css?family=Catamaran:600,400)
 
-#welcomeMessage
-  position: absolute
-  height: 100%
-  width: 100%
-  font-family: "Catamaran", sans-serif
-  background-color: #F65A54
-  color: white
-  letter-spacing: .8px
+body *
+  box-sizing: border-box
 
-  h1
-    font-size: 40px
-    font-weight: 600
-    line-height: 60px
-    opacity: 0
-    transition: .5s all cubic-bezier(0.190, 1.000, 0.220, 1.000)
-    transform: translateY(50px)
+.wrapper
+  max-width: 1140px
+  width: 90%
+  margin: auto
 
-  p
-    color: rgba(255, 255, 255, .6)
-    font-size: 14px
-    line-height: 22px
-    transition: .2s all
-    transition-delay: .1s
-    opacity: 0
-    transform: translateY(50px)
 
-  &.active
-    p, h1
-      opacity: 1
-      transform: translateY(0px)
+.row
+  display: flex
+  flex-wrap: nowrap
+
+.col-2
+  width: 50%
+
+.col-3
+  width: unquote(calc(100% / 3))

@@ -1,0 +1,7 @@
+.row
+  .col-2(col)
+    each val in col0
+      li!= val.get("project")
+  .col-2(col)
+    each val in col1
+      li!= val.get("project")

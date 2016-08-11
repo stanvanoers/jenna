@@ -1,6 +1,6 @@
 {
   "author": "Stan van Oers",
-  "name": "Workflow",
+  "name": "Jenna Arts",
   "paths": {
     "scripts": "scripts",
     "server": "static",
@@ -10,7 +10,7 @@
     "data": "data"
   },
   "server": {
-    "localhost": false,
+    "localhost": true,
     "port": 9000,
     "livereload": 35729
   },
@@ -23,7 +23,7 @@
     "scripts": "bundle.js"
   },
   "data": {
-    "previewData": "data.json"
+
   }
 
 }
