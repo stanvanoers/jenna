@@ -1,14 +1,19 @@
 extends ./../_layout.pug
 
 block title
-  title Jenna Arts
-
+  title Jenna Art
 
 block content
+  section#preloader(preloader)
+    #preloader-bar(preloader="bar")
+    #preloader-text
+      p.light Loading
+      h3.h2.strong Jenna Arts
   section#header(header)
     h2.h3.header-title Jenna Arts
     .wrapper
       a.h3.strong.header-button(href="#about", header="backbutton") About
+
   .wrapper
     section#projects(projects)
       .projects-container(projects='container')
@@ -17,11 +22,22 @@ block content
       .about-text
         .about-info(aboutSlideUp=".5")
           h4.strong Email
-          a.light(href="mailto:arts.jenna@gmail.com") arts.jenna@gmail.com
+          a.light(href="mailto:arts.jenna@gmail.com", target="_blank") arts.jenna@gmail.com
           br
           br
           h4.strong Work for sale
-          a.light(href="http://newchique.gallery/") newchique.gallery
+          a.light(href="http://newchique.gallery/", target="_blank") newchique.gallery
+          br
+          br
+          h4.strong Social
+          a.light(href="https://www.flickr.com/photos/jenna-arts/", target="_blank") Flickr
+          br
+          a.light(href="https://www.behance.net/jenna-arts", target="_blank") Behance
+          br
+          a.light(href="http://jenna-arts.tumblr.com/", target="_blank") Tumblr
+          br
+          a.light(href="https://nl-nl.facebook.com/jenna.artsillustreert/", target="_blank") Facebook
+
         .about-desc
           h1.h1(aboutSlideUp=".2") Jenna Arts
           h3.h3.light(aboutSlideUp=".3") Illustrator
@@ -31,5 +47,6 @@ block content
           br
           h3.strong(aboutFadeIn=".7") Clients
           p.light(aboutFadeIn=".7") NRC Handelsblad, nrc.next, Trouw, De Correspondent, Knack magazine, Uitgeverij Atlas-Contact, VPRO, fivethirtyeight.com, Mind Of A Genius, Mest Magazine
+
 
     section#single(single)

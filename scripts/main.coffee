@@ -11,7 +11,7 @@ singleTemplate = require("./../structure/templates/singleTemplate.pug")
 
 # projectsCollection
 class projectsCollection extends Base.Collection
-  url: "http://jenna.stan.coffee/"
+  url: "//api.jenna-arts.com"
 
 # projectsView
 class projectsView extends Base.View
@@ -75,8 +75,13 @@ class aboutView extends Base.View
     animate.fromTo $("[about='background']"), .5, {x: "-100%"}, {x: "0%", ease: Power4.easeOut}
     for fadeIn in $("[aboutFadeIn]")
       animate.fromTo $(fadeIn), .6, {alpha: 0}, {alpha: 1, delay: $(fadeIn).attr("aboutFadeIn")}
-    for slideUp in $("[aboutSlideUp]")
-      animate.fromTo $(slideUp), .6, {alpha: 0, y: "100%"}, {alpha: 1, y: "0%", delay: $(slideUp).attr("aboutSlideUp"), ease: Power4.easeOut}
+    if app.projectsView.isMobile()
+
+      for slideUp in $("[aboutSlideUp]")
+        animate.fromTo $(slideUp), .6, {alpha: 0, y: "0%"}, {alpha: 1, y: "0%", delay: $(slideUp).attr("aboutSlideUp"), ease: Power4.easeOut}
+    else
+      for slideUp in $("[aboutSlideUp]")
+        animate.fromTo $(slideUp), .6, {alpha: 0, y: "100%"}, {alpha: 1, y: "0%", delay: $(slideUp).attr("aboutSlideUp"), ease: Power4.easeOut}
 
 class singleView extends Base.View
 
@@ -86,22 +91,50 @@ class singleView extends Base.View
     animate.set @el, {alpha: 0, pointerEvents: "none"}
 
   transIn: (id) ->
+    image = new Image()
+
+    $("[single='picture']").removeClass "active"
+
     @$el.html(singleTemplate({"project": app.projectsCollection.models[id]}))
     animate.set @el, {alpha: 1, pointerEvents: "all"}
-    animate.fromTo $("[single='background']"), .5, {x: "100%"}, {x: "0%", ease: Power4.easeOut}
-    animate.fromTo $("[single='picture']"), .5, {x: "100%"}, {x: "0%", alpha: 1, ease: Power3.easeOut}
 
     for slideUp in $("[singleSlideUp]")
       animate.fromTo $(slideUp), .6, {alpha: 0, y: "100%"}, {alpha: 1, y: "0%", delay: $(slideUp).attr("aboutSlideUp"), ease: Power4.easeOut}
 
+    if app.projectsView.isMobile()
+      $("[single='picture']").addClass "active"
+      animate.fromTo $("[single='background']"), .4, {x: "100%"}, {x: "0%", ease: Power2.easeOut}
+      animate.fromTo $("[single='picture']"), .4, {alpha: 0}, {alpha: 1, ease: Power2.easeOut}
+
+    else
+      animate.fromTo $("[single='background']"), .5, {x: "100%"}, {x: "0%", ease: Power4.easeOut}
+      animate.fromTo $("[single='picture']"), .5, {x: "100%"}, {x: "0%", alpha: 1, ease: Power3.easeOut}
+
+      $(image).on("load", =>
+        $("[single='zoom']").text "zoom"
+        $("[single='picture']").addClass "active"
+      )
+
+
+    image.src = app.projectsCollection.models[id].get("imageLarge")
+
+
   transOut: ->
+
 
     for elem in $("[singleSlideUp]")
       animate.to $(elem), .2, {alpha: 0, delay: 0}
-    animate.fromTo $("[single='background']"), .4, {x: "0%"}, {x: "100%", delay: .1, ease: Power4.easeOut, onComplete: =>
-      animate.set @el, {alpha: 0, pointerEvents: "none"}
-    }
-    animate.fromTo $("[single='picture']"), .4, {x: "0%", alpha: 1}, {x: "100%", alpha: 0, ease: Power4.easeOut}
+    if app.projectsView.isMobile()
+        animate.fromTo $("[single='background']"), .1, {alpha: 1}, {alpha: 0, delay: .1, ease: Power4.easeOut, onComplete: =>
+          animate.set @el, {alpha: 0, pointerEvents: "none"}
+        }
+        animate.fromTo $("[single='picture']"), .4, {alpha: 1}, {alpha: 0, ease: Power4.easeOut}
+    else
+      animate.fromTo $("[single='background']"), .4, {x: "0%"}, {x: "100%", delay: .1, ease: Power4.easeOut, onComplete: =>
+        animate.set @el, {alpha: 0, pointerEvents: "none"}
+      }
+
+      animate.fromTo $("[single='picture']"), .4, {x: "0%", alpha: 1}, {x: "100%", alpha: 0, ease: Power4.easeOut}
 
 # Header
 class headerView extends Base.Router
@@ -150,10 +183,23 @@ $ ->
   app.projectsCollection = new projectsCollection()
   app.projectsCollection.fetch
     success: ->
+
       app.projectsView = new projectsView()
       app.singleView = new singleView()
       app.aboutView = new aboutView()
       app.headerView = new headerView()
+
+      length = app.projectsCollection.models.length
+      perc = 100 / parseInt(length)
+      preloadBar = $("[preloader='bar']")
+      for project, val in app.projectsCollection.models
+        image = new Image()
+        image.src = project.get("image")
+        $(image).on("load", =>
+          animate.to preloadBar, .4, {width: val * perc + perc + "%"}
+          if val is length then $("[preloader]").addClass "hide"
+        )
+
 
       app.router = new Router()
       Base.history.start()
