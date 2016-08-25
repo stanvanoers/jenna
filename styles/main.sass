@@ -189,10 +189,11 @@ $header-height: 75px
   display: flex
 
 #single-image-container
-  width: calc(65% - #{$spacing-x})
+  width: calc(100% - #{$spacing-x})
   height: 100%
   position: relative
   margin-right: $spacing-x
+  overflow-y: scroll
   &.active
     #single-image
       opacity: 1

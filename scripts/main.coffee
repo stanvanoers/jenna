@@ -9,6 +9,7 @@ projectsDesktopTemplate = require("./../structure/templates/projectsDesktop.pug"
 projectsMobileTemplate = require("./../structure/templates/projectsMobile.pug")
 singleTemplate = require("./../structure/templates/singleTemplate.pug")
 
+
 # projectsCollection
 class projectsCollection extends Base.Collection
   url: "//api.jenna-arts.com"
@@ -94,7 +95,7 @@ class singleView extends Base.View
     image = new Image()
 
     $("[single='picture']").removeClass "active"
-
+    animate.set $("[single='zoom']"), {alpha: 1}
     @$el.html(singleTemplate({"project": app.projectsCollection.models[id]}))
     animate.set @el, {alpha: 1, pointerEvents: "all"}
 
@@ -111,12 +112,25 @@ class singleView extends Base.View
       animate.fromTo $("[single='picture']"), .5, {x: "100%"}, {x: "0%", alpha: 1, ease: Power3.easeOut}
 
       $(image).on("load", =>
-        $("[single='zoom']").text "zoom"
+
+        if $("[single='picture']").get(0).clientHeight / $("[single='picture']").get(0).scrollHeight is 1
+          animate.to $("[single='zoom']"), .4, {alpha: 0 }
+        else
+          $("[single='zoom']").text "Scroll down"
+          $("[single='picture']").scroll -> animate.to $("[single='zoom']"), .4, {alpha: 0 }
+
         $("[single='picture']").addClass "active"
       )
 
 
     image.src = app.projectsCollection.models[id].get("imageLarge")
+
+  onScrollImage: ->
+    alert "test"
+    animate.to $("[single='zoom']"), 4, {alpha: 0 }
+
+
+
 
 
   transOut: ->
